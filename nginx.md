@@ -112,6 +112,19 @@ server {
 }
 ```
 
+### NGINX proxy example 
+```
+location /telegraf/ {
+    if ($host !~ ^(app.reddit.top|www.app.reddit.top)$ ) {
+        return 444;
+    }
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass http://back/telegraf/;
+}
+```
+
 ### Dockerfile to install nginx with geo-ip
 
 ```dockerfile
