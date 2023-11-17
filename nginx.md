@@ -125,6 +125,45 @@ location /telegraf/ {
 }
 ```
 
+### NGINX gzip
+```
+gzip on;
+gzip_comp_level 5;
+gzip_min_length 256;
+gzip_proxied any;
+gzip_vary on;
+gzip_types
+    application/atom+xml
+    application/javascript
+    application/json
+    application/ld+json
+    application/manifest+json
+    application/rss+xml
+    application/vnd.geo+json
+    application/vnd.ms-fontobject
+    application/x-font-ttf
+    application/x-web-app-manifest+json
+    application/xhtml+xml
+    application/xml
+    font/opentype
+    image/bmp
+    image/svg+xml
+    image/x-icon
+    text/cache-manifest
+    text/css
+    text/plain
+    text/vcard
+    text/vnd.rim.location.xloc
+    text/vtt
+    text/x-component
+    text/x-cross-domain-policy
+    text/xml;
+
+gzip_disable "MSIE [1-6]\.";
+gzip_http_version 1.1;
+gzip_buffers 16 8k;
+```
+
 ### Dockerfile to install nginx with geo-ip
 
 ```dockerfile
