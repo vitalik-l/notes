@@ -82,6 +82,36 @@ server {
 }
 ```
 
+### NGINX config with ssl letsencrypt
+```
+server {
+    listen       80;
+    server_name  [domain];
+    server_tokens off;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+
+    ssl_certificate /etc/letsencrypt/live/[domain]/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/[domain]/privkey.pem;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri /index.html;
+    }
+}
+```
+
 ### Dockerfile to install nginx with geo-ip
 
 ```dockerfile
